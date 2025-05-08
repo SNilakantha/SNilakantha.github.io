@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to My GitHub Page</title>
+</head>
+<body>
+  <h1>Welcome to My GitHub Page</h1>
+  <p>This is a sample page hosted on GitHub Pages.</p>
+
+  <h2>Data from MockAPI</h2>
+  <pre id="fileContent">Loading...</pre>
+
+  <script>
+    fetch('https://681c2ae36ae7c794cf70da81.mockapi.io/solar/files/1')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('fileContent').textContent = data.content;
+      });
+  </script>
+</body>
+</html>
