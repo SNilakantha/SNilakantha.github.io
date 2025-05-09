@@ -1,107 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solar Pump Monitoring</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
-        }
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .section {
-            margin-bottom: 20px;
-        }
-        .section h2 {
-            border-bottom: 2px solid #007BFF;
-            padding-bottom: 10px;
-        }
-        .data {
-            display: flex;
-            justify-content: space-between;
-        }
-        .data div {
-            width: 48%;
-        }
-    </style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Solar Pump Monitoring</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background-color: #ffffff;
+      color: #003366;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 90%;
+      margin: auto;
+      padding: 20px 0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #0059b3;
+      border-bottom: 2px solid #0059b3;
+      padding-bottom: 10px;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      color: #004080;
+      margin-top: 40px;
+      border-bottom: 1px solid #cccccc;
+      padding-bottom: 5px;
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .box {
+      flex: 1 1 200px;
+      min-width: 180px;
+      background-color: #f2f9ff;
+      border: 1px solid #b3d1ff;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 2px 2px 4px rgba(0, 85, 170, 0.1);
+    }
+
+    .label {
+      font-size: 0.9em;
+      color: #666;
+      margin-bottom: 5px;
+    }
+
+    .value {
+      font-size: 1.4em;
+      font-weight: bold;
+      color: #003366;
+      font-family: monospace;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🌞 Solar Pump Monitoring</h1>
-        <p>This dashboard displays real-time (mocked) solar pump data.</p>
+  <div class="container">
+    <h1>🔧 Solar Pump Monitoring</h1>
+    <p style="text-align:center; color:#666;">Real-time field data dashboard</p>
 
-        <div class="section">
-            <h2>Device Information</h2>
-            <div class="data">
-                <div>
-                    <p>Fault: NO FAULT</p>
-                    <p>Installation Date: 12/Jan/2017 07:22 PM</p>
-                    <p>Status: <span id="status">Loading...</span> <button>Turn On</button></p>
-                </div>
-            </div>
-        </div>
-        <div class="section">
-            <h2>Live Data</h2>
-            <div class="data">
-                <div>
-                    <p>PV Voltage: <span id="voltage">--</span> V</p>
-                    <p>PV Total Power: <span id="totalPower">--</span> kWh</p>
-                    <p>Pump Current: <span id="current">--</span> A</p>
-                </div>
-                <div>
-                    <p>Pump Frequency: <span id="frequency">--</span> Hz</p>
-                    <p>Pump Power: <span id="power">--</span> W</p>
-                </div>
-            </div>
-        </div>
-        <div class="section">
-            <h2>Total Pump Run Time</h2>
-            <p><span id="runTime">--</span></p>
-        </div>
-        <div class="section">
-            <h2>Water</h2>
-            <p>Flow Rate: <span id="flow">--</span> L/min</p>
-        </div>
-        <div class="section">
-            <h2>LifeTime Energy</h2>
-            <p><span id="lifeTimeEnergy">--</span> kWh</p>
-        </div>
-        <div class="section">
-            <h2>LifeTime Revenue</h2>
-            <p><span id="lifeTimeRevenue">--</span> INR</p>
-        </div>
+    <h2>Device Info</h2>
+    <div class="grid">
+      <div class="box"><div class="label">Fault</div><div class="value">NO FAULT</div></div>
+      <div class="box"><div class="label">Install Date</div><div class="value">08/May/2025</div></div>
+      <div class="box"><div class="label">Status</div><div class="value" id="status">--</div></div>
     </div>
 
-    <script>
-        fetch('https://681c2ae36ae7c794cf70da81.mockapi.io/solar/files/1')
-          .then(response => response.json())
-          .then(data => {
-            // Assuming `data.content` is a JSON string, e.g., '{"status":"ON", "voltage":320, ...}'
-            const solarData = JSON.parse(data.content);
+    <h2>Live Data</h2>
+    <div class="grid">
+      <div class="box"><div class="label">PV Voltage</div><div class="value" id="voltage">--</div></div>
+      <div class="box"><div class="label">PV Power</div><div class="value" id="totalPower">--</div></div>
+      <div class="box"><div class="label">Pump Current</div><div class="value" id="current">--</div></div>
+      <div class="box"><div class="label">Pump Frequency</div><div class="value" id="frequency">--</div></div>
+      <div class="box"><div class="label">Pump Power</div><div class="value" id="power">--</div></div>
+    </div>
 
-            document.getElementById('status').textContent = solarData.status;
-            document.getElementById('voltage').textContent = solarData.voltage;
-            document.getElementById('current').textContent = solarData.current;
-            document.getElementById('power').textContent = solarData.power;
-            document.getElementById('flow').textContent = solarData.flow_rate;
-            document.getElementById('totalPower').textContent = solarData.total_power;
-            document.getElementById('frequency').textContent = solarData.frequency;
-            document.getElementById('runTime').textContent = solarData.run_time;
-            document.getElementById('lifeTimeEnergy').textContent = solarData.life_time_energy;
-            document.getElementById('lifeTimeRevenue').textContent = solarData.life_time_revenue;
-          })
-          .catch(error => {
-            console.error('Failed to load solar pump data:', error);
-            document.getElementById('status').textContent = 'Error loading data';
-          });
-    </script>
+    <h2>Totals</h2>
+    <div class="grid">
+      <div class="box"><div class="label">Run Time</div><div class="value" id="runTime">--</div></div>
+      <div class="box"><div class="label">Lifetime Energy</div><div class="value" id="lifeTimeEnergy">--</div></div>
+      <div class="box"><div class="label">Lifetime Revenue</div><div class="value" id="lifeTimeRevenue">--</div></div>
+    </div>
+  </div>
+
+  <script>
+    fetch('https://681c2ae36ae7c794cf70da81.mockapi.io/solar/files/1')
+      .then(res => res.json())
+      .then(data => {
+        const d = JSON.parse(data.content);
+        document.getElementById('status').textContent = d.status;
+        document.getElementById('voltage').textContent = d.voltage;
+        document.getElementById('totalPower').textContent = d.total_power;
+        document.getElementById('current').textContent = d.current;
+        document.getElementById('frequency').textContent = d.frequency;
+        document.getElementById('power').textContent = d.power;
+        document.getElementById('runTime').textContent = d.run_time;
+        document.getElementById('lifeTimeEnergy').textContent = d.life_time_energy;
+        document.getElementById('lifeTimeRevenue').textContent = d.life_time_revenue;
+      })
+      .catch(err => {
+        console.error('Data load error:', err);
+      });
+  </script>
 </body>
 </html>
