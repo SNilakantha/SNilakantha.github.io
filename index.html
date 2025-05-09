@@ -1,42 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Solar Pump Monitoring</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Pump Monitoring</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            border-bottom: 2px solid #007BFF;
+            padding-bottom: 10px;
+        }
+        .data {
+            display: flex;
+            justify-content: space-between;
+        }
+        .data div {
+            width: 48%;
+        }
+    </style>
 </head>
 <body>
-  <h1>🌞 Solar Pump Monitoring</h1>
-  <p>This dashboard displays real-time (mocked) solar pump data.</p>
+    <div class="container">
+        <h1>🌞 Solar Pump Monitoring</h1>
+        <p>This dashboard displays real-time (mocked) solar pump data.</p>
 
-  <h2>Pump Data</h2>
-  <ul>
-    <li><strong>Status:</strong> <span id="status">Loading...</span></li>
-    <li><strong>Voltage:</strong> <span id="voltage">--</span> V</li>
-    <li><strong>Current:</strong> <span id="current">--</span> A</li>
-    <li><strong>Power:</strong> <span id="power">--</span> W</li>
-    <li><strong>Flow Rate:</strong> <span id="flow">--</span> L/min</li>
-    <li><strong>Tank Level:</strong> <span id="tank">--</span> %</li>
-    <li><strong>Last Updated:</strong> <span id="timestamp">--</span></li>
-  </ul>
+        <div class="section">
+            <h2>Device Information</h2>
+            <div class="data">
+                <div>
+                    <p>Fault: NO FAULT</p>
+                    <p>Installation Date: 12/Jan/2017 07:22 PM</p>
+                    <p>Status: <span id="status">Loading...</span> <button>Turn On</button></p>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Live Data</h2>
+            <div class="data">
+                <div>
+                    <p>PV Voltage: <span id="voltage">--</span> V</p>
+                    <p>PV Total Power: <span id="totalPower">--</span> kWh</p>
+                    <p>Pump Current: <span id="current">--</span> A</p>
+                </div>
+                <div>
+                    <p>Pump Frequency: <span id="frequency">--</span> Hz</p>
+                    <p>Pump Power: <span id="power">--</span> W</p>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Total Pump Run Time</h2>
+            <p><span id="runTime">--</span></p>
+        </div>
+        <div class="section">
+            <h2>Water</h2>
+            <p>Flow Rate: <span id="flow">--</span> L/min</p>
+        </div>
+        <div class="section">
+            <h2>LifeTime Energy</h2>
+            <p><span id="lifeTimeEnergy">--</span> kWh</p>
+        </div>
+        <div class="section">
+            <h2>LifeTime Revenue</h2>
+            <p><span id="lifeTimeRevenue">--</span> INR</p>
+        </div>
+    </div>
 
-  <script>
-    fetch('https://681c2ae36ae7c794cf70da81.mockapi.io/solar/files/1')
-      .then(response => response.json())
-      .then(data => {
-        // Assuming `data.content` is a JSON string, e.g., '{"status":"ON", "voltage":320, ...}'
-        const solarData = JSON.parse(data.content);
+    <script>
+        fetch('https://681c2ae36ae7c794cf70da81.mockapi.io/solar/files/1')
+          .then(response => response.json())
+          .then(data => {
+            // Assuming `data.content` is a JSON string, e.g., '{"status":"ON", "voltage":320, ...}'
+            const solarData = JSON.parse(data.content);
 
-        document.getElementById('status').textContent = solarData.status;
-        document.getElementById('voltage').textContent = solarData.voltage;
-        document.getElementById('current').textContent = solarData.current;
-        document.getElementById('power').textContent = solarData.power;
-        document.getElementById('flow').textContent = solarData.flow_rate;
-        document.getElementById('tank').textContent = solarData.tank_level;
-        document.getElementById('timestamp').textContent = new Date(solarData.timestamp).toLocaleString();
-      })
-      .catch(error => {
-        console.error('Failed to load solar pump data:', error);
-        document.getElementById('status').textContent = 'Error loading data';
-      });
-  </script>
+            document.getElementById('status').textContent = solarData.status;
+            document.getElementById('voltage').textContent = solarData.voltage;
+            document.getElementById('current').textContent = solarData.current;
+            document.getElementById('power').textContent = solarData.power;
+            document.getElementById('flow').textContent = solarData.flow_rate;
+            document.getElementById('totalPower').textContent = solarData.total_power;
+            document.getElementById('frequency').textContent = solarData.frequency;
+            document.getElementById('runTime').textContent = solarData.run_time;
+            document.getElementById('lifeTimeEnergy').textContent = solarData.life_time_energy;
+            document.getElementById('lifeTimeRevenue').textContent = solarData.life_time_revenue;
+          })
+          .catch(error => {
+            console.error('Failed to load solar pump data:', error);
+            document.getElementById('status').textContent = 'Error loading data';
+          });
+    </script>
 </body>
 </html>
