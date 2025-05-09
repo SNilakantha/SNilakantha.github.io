@@ -99,17 +99,16 @@
       fetch('https://681c2ae36ae7c794cf70da81.mockapi.io/solar/files/1')
         .then(response => response.json())
         .then(data => {
-          const d = JSON.parse(data.content);
-          document.getElementById('status').textContent = d.status;
-          document.getElementById('voltage').textContent = d.voltage;
-          document.getElementById('totalPower').textContent = d.total_power;
-          document.getElementById('current').textContent = d.current;
-          document.getElementById('frequency').textContent = d.frequency;
-          document.getElementById('power').textContent = d.power;
-          document.getElementById('runTime').textContent = d.run_time;
-          document.getElementById('lifeTimeEnergy').textContent = d.life_time_energy;
-          document.getElementById('lifeTimeRevenue').textContent = d.life_time_revenue;
-          document.getElementById('fault').textContent = d.fault || 'NO FAULT';
+          document.getElementById('status').textContent = data.status;
+          document.getElementById('voltage').textContent = data.voltage;
+          document.getElementById('totalPower').textContent = data.total_power;
+          document.getElementById('current').textContent = data.current;
+          document.getElementById('frequency').textContent = data.frequency;
+          document.getElementById('power').textContent = data.power;
+          document.getElementById('runTime').textContent = data.run_time;
+          document.getElementById('lifeTimeEnergy').textContent = data.life_time_energy;
+          document.getElementById('lifeTimeRevenue').textContent = data.life_time_revenue;
+          document.getElementById('fault').textContent = data.fault || 'NO FAULT';
         })
         .catch(err => {
           console.error('Error loading data:', err);
