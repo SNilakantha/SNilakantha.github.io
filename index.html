@@ -94,33 +94,32 @@
     </div>
   </div>
 
-<script>
-  function updateLiveData() {
-    fetch('https://681c2ae36ae7c794cf70da81.mockapi.io/solar/files/1')
-      .then(response => response.json())
-      .then(data => {
-        const d = JSON.parse(data.content);
-        document.getElementById('status').textContent = d.status;
-        document.getElementById('voltage').textContent = d.voltage;
-        document.getElementById('totalPower').textContent = d.total_power;
-        document.getElementById('current').textContent = d.current;
-        document.getElementById('frequency').textContent = d.frequency;
-        document.getElementById('power').textContent = d.power;
-        document.getElementById('flow').textContent = d.flow_rate;
-        document.getElementById('runTime').textContent = d.run_time;
-        document.getElementById('lifeTimeEnergy').textContent = d.life_time_energy;
-        document.getElementById('lifeTimeRevenue').textContent = d.life_time_revenue;
-      })
-      .catch(err => {
-        console.error('Error loading data:', err);
-      });
-  }
+  <script>
+    function updateLiveData() {
+      fetch('https://681c2ae36ae7c794cf70da81.mockapi.io/solar/files/1')
+        .then(response => response.json())
+        .then(data => {
+          const d = JSON.parse(data.content);
+          document.getElementById('status').textContent = d.status;
+          document.getElementById('voltage').textContent = d.voltage;
+          document.getElementById('totalPower').textContent = d.total_power;
+          document.getElementById('current').textContent = d.current;
+          document.getElementById('frequency').textContent = d.frequency;
+          document.getElementById('power').textContent = d.power;
+          document.getElementById('runTime').textContent = d.run_time;
+          document.getElementById('lifeTimeEnergy').textContent = d.life_time_energy;
+          document.getElementById('lifeTimeRevenue').textContent = d.life_time_revenue;
+        })
+        .catch(err => {
+          console.error('Error loading data:', err);
+        });
+    }
 
-  // Initial load
-  updateLiveData();
+    // Initial fetch
+    updateLiveData();
 
-  // Poll every 5 seconds
-  setInterval(updateLiveData, 5000);
-</script>
+    // Refresh every 5 seconds
+    setInterval(updateLiveData, 5000);
+  </script>
 </body>
 </html>
