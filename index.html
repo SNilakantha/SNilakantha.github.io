@@ -1,20 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Welcome to My GitHub Page</title>
+  <title>Solar Pump Monitoring</title>
 </head>
 <body>
-  <h1>Welcome to My GitHub Page</h1>
-  <p>This is a sample page hosted on GitHub Pages.</p>
+  <h1>🌞 Solar Pump Monitoring</h1>
+  <p>This dashboard displays real-time (mocked) solar pump data.</p>
 
-  <h2>Data from MockAPI</h2>
-  <pre id="fileContent">Loading...</pre>
+  <h2>Pump Data</h2>
+  <ul>
+    <li><strong>Status:</strong> <span id="status">Loading...</span></li>
+    <li><strong>Voltage:</strong> <span id="voltage">--</span> V</li>
+    <li><strong>Current:</strong> <span id="current">--</span> A</li>
+    <li><strong>Power:</strong> <span id="power">--</span> W</li>
+    <li><strong>Flow Rate:</strong> <span id="flow">--</span> L/min</li>
+    <li><strong>Tank Level:</strong> <span id="tank">--</span> %</li>
+    <li><strong>Last Updated:</strong> <span id="timestamp">--</span></li>
+  </ul>
 
   <script>
     fetch('https://681c2ae36ae7c794cf70da81.mockapi.io/solar/files/1')
       .then(response => response.json())
       .then(data => {
-        document.getElementById('fileContent').textContent = data.content;
+        // Assuming `data.content` is a JSON string, e.g., '{"status":"ON", "voltage":320, ...}'
+        const solarData = JSON.parse(data.content);
+
+        document.getElementById('status').textContent = solarData.status;
+        document.getElementById('voltage').textContent = solarData.voltage;
+        document.getElementById('current').textContent = solarData.current;
+        document.getElementById('power').textContent = solarData.power;
+        document.getElementById('flow').textContent = solarData.flow_rate;
+        document.getElementById('tank').textContent = solarData.tank_level;
+        document.getElementById('timestamp').textContent = new Date(solarData.timestamp).toLocaleString();
+      })
+      .catch(error => {
+        console.error('Failed to load solar pump data:', error);
+        document.getElementById('status').textContent = 'Error loading data';
       });
   </script>
 </body>
