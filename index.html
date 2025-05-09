@@ -72,7 +72,7 @@
 
     <h2>Device Info</h2>
     <div class="grid">
-      <div class="box"><div class="label">Fault</div><div class="value">NO FAULT</div></div>
+      <div class="box"><div class="label">Fault</div><div class="value" id="fault">--</div></div>
       <div class="box"><div class="label">Install Date</div><div class="value">08/May/2025</div></div>
       <div class="box"><div class="label">Status</div><div class="value" id="status">--</div></div>
     </div>
@@ -109,6 +109,7 @@
           document.getElementById('runTime').textContent = d.run_time;
           document.getElementById('lifeTimeEnergy').textContent = d.life_time_energy;
           document.getElementById('lifeTimeRevenue').textContent = d.life_time_revenue;
+          document.getElementById('fault').textContent = d.fault || 'NO FAULT';
         })
         .catch(err => {
           console.error('Error loading data:', err);
